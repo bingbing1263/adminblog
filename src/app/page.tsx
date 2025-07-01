@@ -7,6 +7,12 @@ interface PostMeta {
   excerpt?: string;
 }
 
+function getExcerpt(excerpt?: string) {
+  if (!excerpt) return "No excerpt available. Click to read more.";
+  const paragraphs = excerpt.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+  return paragraphs[0] || excerpt.trim() || "No excerpt available. Click to read more.";
+}
+
 async function getPosts(): Promise<PostMeta[]> {
   const baseUrl =
     process.env.VERCEL_URL
@@ -40,7 +46,7 @@ export default async function HomePage() {
                 </h2>
                 <div className="text-gray-500 text-sm mb-3">{post.date}</div>
                 <p className="text-gray-700 dark:text-gray-200 mb-4 min-h-[48px]">
-                  {post.excerpt || "No excerpt available. Click to read more."}
+                  {getExcerpt(post.excerpt)}
                 </p>
               </div>
               <Link href={`/${post.slug}`} className="mt-auto text-blue-600 hover:underline font-medium">Read more &rarr;</Link>
