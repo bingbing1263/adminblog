@@ -5,10 +5,6 @@ module.exports = {
         protocol: 'https',
         hostname: '**',
       },
-      {
-        protocol: 'data',
-        hostname: '**',
-      },
     ],
   },
   env: {
