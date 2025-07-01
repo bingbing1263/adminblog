@@ -48,7 +48,7 @@ export async function GET() {
       })
     );
     return NextResponse.json(posts.filter(Boolean));
-  } catch (e) {
+  } catch {
     return NextResponse.json([], { status: 500 });
   }
 }
@@ -70,7 +70,7 @@ export async function POST(req: Request) {
       content: Buffer.from(md).toString("base64"),
     });
     return NextResponse.json({ ok: true, slug });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: "Failed to create post" }, { status: 500 });
   }
 }
@@ -100,7 +100,7 @@ export async function PUT(req: Request) {
       sha,
     });
     return NextResponse.json({ ok: true });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
   }
 }
@@ -128,7 +128,7 @@ export async function DELETE(req: Request) {
       sha,
     });
     return NextResponse.json({ ok: true });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: "Failed to delete post" }, { status: 500 });
   }
 } 

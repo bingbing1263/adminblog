@@ -21,7 +21,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [editingSlug, setEditingSlug] = useState<string | null>(null);
   const [token, setToken] = useState<string | null>(null);
-  const [resources, setResources] = useState<any[]>([]);
+  const [resources, setResources] = useState<unknown[]>([]);
   const [resourceLoading, setResourceLoading] = useState(false);
   const [resourceMsg, setResourceMsg] = useState("");
   const [editingResourceIdx, setEditingResourceIdx] = useState<number | null>(null);

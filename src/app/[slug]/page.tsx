@@ -25,7 +25,7 @@ export default async function PostPage({ params }: PostPageProps) {
         </main>
       </>
     );
-  } catch (e) {
+  } catch {
     notFound();
   }
 } 
