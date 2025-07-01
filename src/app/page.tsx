@@ -19,20 +19,33 @@ async function getPosts(): Promise<PostMeta[]> {
 export default async function HomePage() {
   const posts = await getPosts();
   return (
-    <main className="max-w-2xl mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6">AdminBlog</h1>
-      <ul className="space-y-4">
-        {posts.map(post => (
-          <li key={post.slug} className="border-b pb-2">
-            <Link href={`/${post.slug}`}
-              className="text-xl font-semibold hover:underline">
-              {post.title}
-            </Link>
-            <div className="text-gray-500 text-sm">{post.date}</div>
-          </li>
-        ))}
-        {posts.length === 0 && <li>No posts found.</li>}
-      </ul>
-    </main>
+    <section>
+      <h1 className="text-4xl font-extrabold mb-2 text-center">AdminBlog</h1>
+      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 text-center">A database-free, GitHub-powered blog and CMS.</p>
+      {posts.length === 0 ? (
+        <div className="text-center mt-16">
+          <p className="text-xl mb-4">No posts found.</p>
+          <Link href="/admin" className="inline-block bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 transition">Log in as admin to create your first post</Link>
+        </div>
+      ) : (
+        <ul className="grid gap-6 md:grid-cols-2">
+          {posts.map(post => (
+            <li key={post.slug} className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col justify-between border border-gray-100 dark:border-gray-800">
+              <div>
+                <h2 className="text-2xl font-bold mb-2">
+                  <Link href={`/${post.slug}`} className="hover:underline">
+                    {post.title}
+                  </Link>
+                </h2>
+                <div className="text-gray-500 text-sm mb-4">{post.date}</div>
+                {/* Excerpt placeholder, could fetch more for real excerpt */}
+                <p className="text-gray-700 dark:text-gray-200 mb-4">Read this post for more details...</p>
+              </div>
+              <Link href={`/${post.slug}`} className="mt-auto text-blue-600 hover:underline font-medium">Read more &rarr;</Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
