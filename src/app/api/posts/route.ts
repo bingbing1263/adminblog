@@ -22,6 +22,7 @@ export async function GET() {
       repo: process.env.GITHUB_REPO!,
       path: "data/md",
     });
+    console.log("[API /api/posts] octokit.repos.getContent data:", JSON.stringify(data, null, 2));
     if (!Array.isArray(data)) return NextResponse.json([]);
     const posts = await Promise.all(
       data.filter(f => f.name.endsWith(".md")).map(async (file) => {
