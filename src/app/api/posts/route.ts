@@ -37,11 +37,12 @@ export async function GET() {
           fileRes.data.content
         ) {
           const md = Buffer.from(fileRes.data.content, "base64").toString("utf-8");
-          const { data } = parseMarkdown(md);
+          const { data, content } = parseMarkdown(md);
           return {
             title: data.title || slug,
             date: data.date || "",
             slug,
+            excerpt: content.slice(0, 160),
           };
         }
         return null;

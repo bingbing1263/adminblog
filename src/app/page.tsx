@@ -4,6 +4,7 @@ interface PostMeta {
   title: string;
   date: string;
   slug: string;
+  excerpt?: string;
 }
 
 async function getPosts(): Promise<PostMeta[]> {
@@ -28,18 +29,19 @@ export default async function HomePage() {
           <Link href="/admin" className="inline-block bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 transition">Log in as admin to create your first post</Link>
         </div>
       ) : (
-        <ul className="grid gap-6 md:grid-cols-2">
+        <ul className="grid gap-8 md:grid-cols-2">
           {posts.map(post => (
-            <li key={post.slug} className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 flex flex-col justify-between border border-gray-100 dark:border-gray-800">
+            <li key={post.slug} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 flex flex-col justify-between border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-shadow">
               <div>
                 <h2 className="text-2xl font-bold mb-2">
                   <Link href={`/${post.slug}`} className="hover:underline">
                     {post.title}
                   </Link>
                 </h2>
-                <div className="text-gray-500 text-sm mb-4">{post.date}</div>
-                {/* Excerpt placeholder, could fetch more for real excerpt */}
-                <p className="text-gray-700 dark:text-gray-200 mb-4">Read this post for more details...</p>
+                <div className="text-gray-500 text-sm mb-3">{post.date}</div>
+                <p className="text-gray-700 dark:text-gray-200 mb-4 min-h-[48px]">
+                  {post.excerpt || "No excerpt available. Click to read more."}
+                </p>
               </div>
               <Link href={`/${post.slug}`} className="mt-auto text-blue-600 hover:underline font-medium">Read more &rarr;</Link>
             </li>
