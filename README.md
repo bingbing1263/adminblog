@@ -57,6 +57,49 @@ AdminBlog is an open-source dynamic website solution without a traditional datab
    ```
 3. Visit `http://localhost:3000` to view the app.
 
+## Project Structure
+
+```
+adminblog/
+├── data/                # Content storage
+│   ├── json/            # JSON resources
+│   └── md/              # Markdown articles
+├── public/              # Static assets
+├── src/
+│   ├── app/             # Next.js app router
+│   │   ├── admin/       # Admin dashboard
+│   │   ├── api/         # API routes
+│   │   │   ├── auth/    # Authentication
+│   │   │   ├── posts/   # Blog post CRUD
+│   │   │   └── resources/ # Resource management
+│   │   ├── [slug]/      # Blog post pages
+│   │   ├── layout.tsx   # Root layout
+│   │   └── page.tsx     # Home page
+│   ├── components/      # UI components
+│   └── lib/             # Utility functions
+│       ├── github.ts    # GitHub API client
+│       ├── markdown.ts  # Markdown processor
+│       └── utils.ts     # Helper functions
+├── next.config.js       # Next.js config
+└── package.json         # Project dependencies
+```
+
+## Core API Features
+
+### Blog Posts (/api/posts)
+- GET: Retrieve all posts or a specific post
+- POST: Create new post
+- PUT: Update existing post
+- DELETE: Remove post
+
+### Authentication (/api/auth)
+- POST /login: Admin login with password
+- POST /logout: Invalidate JWT token
+
+### Resources (/api/resources)
+- GET: Retrieve all resources
+- POST: Update resources.json
+
 ## Installation
 
 1. Clone the repository:
