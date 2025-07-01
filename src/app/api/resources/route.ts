@@ -59,8 +59,16 @@ export async function POST(req: Request) {
       sha,
     });
     return NextResponse.json({ ok: true });
-  } catch (err: any) {
-    return NextResponse.json({ error: "Failed to add resource", details: err?.response?.data || err?.message || String(err) }, { status: 500 });
+  } catch (err: unknown) {
+    let details = '';
+    if (typeof err === 'object' && err && 'response' in err && typeof (err as any).response === 'object' && (err as any).response && 'data' in (err as any).response) {
+      details = (err as any).response.data;
+    } else if (err instanceof Error) {
+      details = err.message;
+    } else {
+      details = String(err);
+    }
+    return NextResponse.json({ error: "Failed to add resource", details }, { status: 500 });
   }
 }
 
@@ -90,8 +98,16 @@ export async function PUT(req: Request) {
       sha,
     });
     return NextResponse.json({ ok: true });
-  } catch (err: any) {
-    return NextResponse.json({ error: "Failed to update resource", details: err?.response?.data || err?.message || String(err) }, { status: 500 });
+  } catch (err: unknown) {
+    let details = '';
+    if (typeof err === 'object' && err && 'response' in err && typeof (err as any).response === 'object' && (err as any).response && 'data' in (err as any).response) {
+      details = (err as any).response.data;
+    } else if (err instanceof Error) {
+      details = err.message;
+    } else {
+      details = String(err);
+    }
+    return NextResponse.json({ error: "Failed to update resource", details }, { status: 500 });
   }
 }
 
