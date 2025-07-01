@@ -1,6 +1,9 @@
+# AdminBlog
+
 AdminBlog is an open-source dynamic website solution without a traditional database, built with Next.js, Tailwind CSS, and Shadcn/UI. It leverages GitHub as a content management system, providing a seamless way to create and manage website content.
 
 ## Deploy on Vercel
+
 ## Features
 
 - **Database-free Architecture**: Utilizes GitHub for content storage and management.
@@ -80,6 +83,8 @@ AdminBlog is an open-source dynamic website solution without a traditional datab
 
 ## Contributing
 
+Contributions are welcome! Please open an issue or submit a pull request.
+
 ## License
 
 AdminBlog is open-source software licensed under the [MIT license].
@@ -94,5 +99,3 @@ AdminBlog is built with the following open-source libraries:
 - [Next.js](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Shadcn/UI](https://ui.shadcn.com/)
-
-We are grateful to the maintainers and contributors of these projects.
