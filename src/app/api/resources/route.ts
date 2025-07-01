@@ -59,8 +59,8 @@ export async function POST(req: Request) {
       sha,
     });
     return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json({ error: "Failed to add resource" }, { status: 500 });
+  } catch (err: any) {
+    return NextResponse.json({ error: "Failed to add resource", details: err?.response?.data || err?.message || String(err) }, { status: 500 });
   }
 }
 
@@ -90,8 +90,8 @@ export async function PUT(req: Request) {
       sha,
     });
     return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json({ error: "Failed to update resource" }, { status: 500 });
+  } catch (err: any) {
+    return NextResponse.json({ error: "Failed to update resource", details: err?.response?.data || err?.message || String(err) }, { status: 500 });
   }
 }
 
