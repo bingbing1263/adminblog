@@ -61,8 +61,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   } catch (err: unknown) {
     let details = '';
-    if (typeof err === 'object' && err && 'response' in err && typeof (err as any).response === 'object' && (err as any).response && 'data' in (err as any).response) {
-      details = (err as any).response.data;
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'response' in err &&
+      typeof (err.response) === 'object' &&
+      err.response !== null &&
+      'data' in (err.response as Record<string, unknown>)
+    ) {
+      details = String((err.response as { data?: unknown }).data ?? '');
     } else if (err instanceof Error) {
       details = err.message;
     } else {
@@ -100,8 +107,15 @@ export async function PUT(req: Request) {
     return NextResponse.json({ ok: true });
   } catch (err: unknown) {
     let details = '';
-    if (typeof err === 'object' && err && 'response' in err && typeof (err as any).response === 'object' && (err as any).response && 'data' in (err as any).response) {
-      details = (err as any).response.data;
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'response' in err &&
+      typeof (err.response) === 'object' &&
+      err.response !== null &&
+      'data' in (err.response as Record<string, unknown>)
+    ) {
+      details = String((err.response as { data?: unknown }).data ?? '');
     } else if (err instanceof Error) {
       details = err.message;
     } else {
