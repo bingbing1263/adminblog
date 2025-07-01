@@ -49,7 +49,8 @@ export async function GET() {
       })
     );
     return NextResponse.json(posts.filter(Boolean));
-  } catch {
+  } catch (err) {
+    console.error("[API /api/posts] Error:", err);
     return NextResponse.json([], { status: 500 });
   }
 }
