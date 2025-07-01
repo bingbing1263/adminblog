@@ -27,6 +27,7 @@ export default async function HomePage() {
   const posts = await getPosts();
   return (
     <section>
+      <pre style={{ color: 'red', background: '#fff' }}>{JSON.stringify(posts, null, 2)}</pre>
       <h1 className="text-4xl font-extrabold mb-2 text-center">AdminBlog</h1>
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 text-center">A database-free, GitHub-powered blog and CMS.</p>
       {posts.length === 0 ? (
