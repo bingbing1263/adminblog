@@ -2,9 +2,12 @@ import { NextResponse } from "next/server";
 import { getFileContent } from "@/lib/github";
 import { parseMarkdown } from "@/lib/markdown";
 
-export async function GET(_req: Request, { params }: { params: { slug: string } }) {
+export async function GET(req: Request) {
   try {
-    const md = await getFileContent(`data/md/${params.slug}.md`);
+    const url = new URL(req.url);
+    const slug = url.pathname.split("/").filter(Boolean).pop();
+    if (!slug) throw new Error("Missing slug");
+    const md = await getFileContent(`data/md/${slug}.md`);
     const { data, content } = parseMarkdown(md);
     return NextResponse.json({ ...data, content });
   } catch {
