@@ -51,31 +51,12 @@ async function getResources(): Promise<Resource[]> {
   if (!res.ok) return [];
   
   const data = await res.json();
-  
-  const serializeValue = (value: any): any => {
-    if (value instanceof Date) {
-      return value.toISOString();
-    }
-    if (Array.isArray(value)) {
-      return value.map(serializeValue);
-    }
-    if (value && typeof value === 'object') {
-      return Object.fromEntries(
-        Object.entries(value).map(([k, v]) => [k, serializeValue(v)])
-      );
-    }
-    return value;
-  };
-
-  return data.map((resource: Resource) => {
-    const serialized = serializeValue(resource);
-    return {
-      ...serialized,
-      title: String(serialized.title),
-      url: String(serialized.url),
-      description: serialized.description ? String(serialized.description) : undefined
-    };
-  });
+  return data.map((resource: Resource) => ({
+    ...resource,
+    title: String(resource.title),
+    url: String(resource.url),
+    description: resource.description ? String(resource.description) : undefined
+  }));
 }
 
 export default async function HomePage() {
