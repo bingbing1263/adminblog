@@ -7,6 +7,12 @@ interface PostMeta {
   excerpt?: string;
 }
 
+interface Resource {
+  title: string;
+  url: string;
+  description?: string;
+}
+
 function getExcerpt(excerpt?: string) {
   if (!excerpt) return "No excerpt available. Click to read more.";
   const paragraphs = excerpt.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
@@ -25,12 +31,47 @@ async function getPosts(): Promise<PostMeta[]> {
   return res.json();
 }
 
+async function getResources(): Promise<Resource[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const res = await fetch(`${baseUrl}/api/resources`, { 
+    cache: "no-store",
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  if (!res.ok) return [];
+  return res.json();
+}
+
 export default async function HomePage() {
-  const posts = await getPosts();
+  const [posts, resources] = await Promise.all([getPosts(), getResources()]);
   return (
     <section>
       <h1 className="text-4xl font-extrabold mb-2 text-center">AdminBlog</h1>
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 text-center">A database-free, GitHub-powered blog and CMS.</p>
+      
+      {resources.length > 0 && (
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold mb-6 text-center">Featured Resources</h2>
+          <ul className="grid gap-6 md:grid-cols-2 mb-12">
+            {resources.map((resource, index) => (
+              <li key={`${resource.url}-${resource.title}-${index}`} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-shadow">
+                <a 
+                  href={resource.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <h3 className="text-xl font-bold mb-2">{resource.title}</h3>
+                  <p className="text-gray-700 dark:text-gray-200">
+                    {resource.description?.toString() || 'No description available'}
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {posts.length === 0 ? (
         <div className="text-center mt-16">
           <p className="text-xl mb-4">No posts found.</p>
