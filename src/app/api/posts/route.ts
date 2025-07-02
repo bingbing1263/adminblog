@@ -17,10 +17,6 @@ function verifyAuth(req: Request) {
 
 export async function GET() {
   try {
-    // Debug logging for environment variables (do not log actual token value)
-    console.log("[DEBUG] GITHUB_TOKEN set:", !!process.env.GITHUB_TOKEN);
-    console.log("[DEBUG] GITHUB_OWNER:", process.env.GITHUB_OWNER);
-    console.log("[DEBUG] GITHUB_REPO:", process.env.GITHUB_REPO);
     const { data } = await octokit.repos.getContent({
       owner: process.env.GITHUB_OWNER!,
       repo: process.env.GITHUB_REPO!,
