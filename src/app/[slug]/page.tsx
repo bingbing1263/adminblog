@@ -3,8 +3,8 @@ import { getFileContent } from "@/lib/github";
 import { parseMarkdown, markdownToHtml } from "@/lib/markdown";
 import { notFound } from "next/navigation";
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   try {
     const md = await getFileContent(`data/md/${slug}.md`);
     const { data, content } = parseMarkdown(md);
