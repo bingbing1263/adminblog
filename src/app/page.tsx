@@ -51,7 +51,6 @@ async function getResources(): Promise<Resource[]> {
   if (!res.ok) return [];
   
   const data = await res.json();
-<<<<<<< HEAD
   
   type ResourceValue = string | number | boolean | Date | null | undefined | ResourceValue[] | { [key: string]: ResourceValue };
 
@@ -79,14 +78,6 @@ async function getResources(): Promise<Resource[]> {
       description: serialized.description ? String(serialized.description) : undefined
     };
   });
-=======
-  return data.map((resource: Resource) => ({
-    ...resource,
-    title: String(resource.title),
-    url: String(resource.url),
-    description: resource.description ? String(resource.description) : undefined
-  }));
->>>>>>> parent of 86925be (Update page.tsx)
 }
 
 export default async function HomePage() {
