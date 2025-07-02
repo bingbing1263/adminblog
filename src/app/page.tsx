@@ -51,7 +51,7 @@ async function getResources(): Promise<Resource[]> {
   if (!res.ok) return [];
   
   const data = await res.json();
-  return data.map(resource => ({
+  return data.map((resource: Resource) => ({
     ...resource,
     title: String(resource.title),
     url: String(resource.url),
