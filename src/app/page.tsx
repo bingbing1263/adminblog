@@ -40,7 +40,14 @@ async function getResources(): Promise<Resource[]> {
     }
   });
   if (!res.ok) return [];
-  return res.json();
+  
+  const data = await res.json();
+  return data.map(resource => ({
+    ...resource,
+    title: String(resource.title),
+    url: String(resource.url),
+    description: resource.description ? String(resource.description) : undefined
+  }));
 }
 
 export default async function HomePage() {
