@@ -31,6 +31,13 @@ async function getPosts(): Promise<PostMeta[]> {
   return res.json();
 }
 
+interface Resource {
+  title: string;
+  url: string;
+  description?: string;
+  [key: string]: any;
+}
+
 async function getResources(): Promise<Resource[]> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const res = await fetch(`${baseUrl}/api/resources`, { 
