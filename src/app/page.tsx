@@ -52,9 +52,7 @@ async function getResources(): Promise<Resource[]> {
   
   const data = await res.json();
   
-  type ResourceValue = string | number | boolean | Date | null | undefined | ResourceValue[] | { [key: string]: ResourceValue };
-
-  const serializeValue = (value: ResourceValue): ResourceValue => {
+  const serializeValue = (value: any): any => {
     if (value instanceof Date) {
       return value.toISOString();
     }
