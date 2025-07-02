@@ -32,10 +32,12 @@ async function getPosts(): Promise<PostMeta[]> {
 }
 
 interface Resource {
+  id: string;
   title: string;
   url: string;
   description?: string;
-  [key: string]: any;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 async function getResources(): Promise<Resource[]> {
